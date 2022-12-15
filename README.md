@@ -27,6 +27,7 @@ Refer to the zcash.readthedocs for zcash installation information.
 
 More info:
 	https://man7.org/linux/man-pages/man7/inotify.7.html
+	
 	https://rustup.rs/
 	
 Download the repo into the dir of your choice, all of the files will be moved into other folders.
@@ -63,12 +64,13 @@ Run the climatenotify bash scripts. This can be done by either opening 3 seperat
 	Open 3 seperate terminals and in each
 	navigate to the zcash/src folder and
 	run the following:
+	
 		./climatenotify
 		./climatenotify1
 		./climatenotify2
 		 
-	(These scripts run seperately from the zclimate binary and will need terminating after you are finished using the program. To terminate, select the     
-  terminal and push 'ctrl C')
+	These scripts run seperately from the zclimate binary and will need terminating after you are finished using the program. 
+	To terminate, select the terminal and push 'ctrl C'
 		
 Run zcashd. The Node will need to be fully sync'd in order to call any zcash-cli command besides 'getinfo' (yes) and 'Get All TXs' (maybe?! best just to wait until it's tipped).
 
@@ -81,7 +83,7 @@ Run zclimate.
 	Navigate to the zclimate folder and 
 	run the following:
   
-			cargo run
+		cargo run
 			
 The program will prompt you for the paths to
 	the zcash.conf file,
