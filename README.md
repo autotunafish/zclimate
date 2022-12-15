@@ -84,7 +84,7 @@ Run zcashd. The Node will need to be fully sync'd in order to call any zcash-cli
 		
 Run zclimate. 
 
-	Navigate to the zclimate folder and 
+	Navigate to your climate binary folder and 
 	run the following:
   
 		cargo run
