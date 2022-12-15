@@ -131,13 +131,13 @@ You'll be presented with a list of options.
 		Allows z_getbalance
 		
 	| O - Operations 
-		Shows all opids in memory with z_getoperation
+		Shows all opids in memory with z_getoperationstatus
 		
 	| X - Exit
 		Close the program
 
 
-Notes: The program ran fine all through testing until nearly the end of writing the code when (this is the only thing I can figure) an OS update sitting in memory slowed the outside inotifywait scripts to the point where the program ran extremely slow and showed incorrect balance values. The system allowed the 'CLOSE' events to persist so long that the zclimate program was immediately triggered and read in the same data as the call prior to it, before the system had set the new file instance wih the correct output in memory. This need for buffering is echoed in the cp event in the climatenotify scripts and the various thread::sleep events in the program. Some may not be be necessary but any noticible, persistant lag is probably associated with either the system or with zcashd in which case just ensure to apply any pending updates and reboot before tweaking the values.
+Notes: The program ran fine all through testing until nearly the end of writing the code when (this is the only thing I can figure) an OS update sitting in memory slowed the outside inotifywait scripts to the point where the program ran extremely slow and showed incorrect balance values. The system allowed the 'CLOSE' events to persist so long that the zclimate program was immediately triggered and read in the same data as the call prior to it, before the system had set the new file instance wih the correct output in memory. This need for buffering is echoed in the cp event in the climatenotify scripts and the various thread::sleep events in the program. Some may not be be necessary but any noticible, persistant lag is probably associated with either the system or with zcashd in which case just ensure to apply any pending updates and reboot before tweaking the delay values.
 
 During the 'Send' process, it is possible to enter an invalid 'amount' and the process continue as it does not parse or check the input inside a loop which is required or else it will break the main loop and Exit completely. There was a check against the total balance - 0.00001 for sufficient funds before the option to 'Send' but not a second time. The tx will, however, abort by default anyways with any unknown input (must enter capital 'Y' to send) and even then the z_sendmany call will fail without problem. 
 
