@@ -3,7 +3,4 @@
 ./climatenotify &
 ./climatenotify1 &
 ./climatenotify2 &
-./climatenotify3 &
-./climatenotify4 &
-./climatenotify5 &
 wait
