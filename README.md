@@ -34,7 +34,8 @@ Download the repo into the dir of your choice, all of the files will be moved in
 
 	git clone https://github.com/autotunafish/zclimate.git
 	
-Create a new cargo binary, probably named zclimate but whatever you'd like, remember the downloaded repo is named zclimate by default so...
+Create a new cargo binary in the '/home/you' directory, probably named zclimate but whatever you'd like. 
+Remember the downloaded repo is named zclimate by default so...
 
 	cargo new climate --bin
 
