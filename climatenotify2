@@ -1,8 +1,8 @@
 #!/bin/bash
 
-while inotifywait -r -qq -e close_write "/home/john/zcash/src/climateusenox4.txt"
+while inotifywait -r -qq -e close_write "/climateusenox4.txt"
 do
-cp "/home/john/zcash/src/climateusenox4.txt" "/home/john/zcash/src/climateusenox5.txt"
+cp "/climateusenox4.txt" "/climateusenox5.txt"
 variable=$(./climateusenox5.txt)
 $variable
 
