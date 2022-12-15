@@ -1,0 +1,1 @@
+./zcash-cli -conf=/home/john/zcash.conf listaddresses > ~/zcash/src/climateuse0.txt 2>&1
