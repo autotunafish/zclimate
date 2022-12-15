@@ -1,0 +1,8 @@
+#!/bin/bash
+tail -n 10 "/home/john/.zcash/debug.log"
+
+while inotifywait -rq -e modify "/home/john/.zcash/debug.log"
+do
+tail -n 1 "/home/john/.zcash/debug.log"
+
+done
