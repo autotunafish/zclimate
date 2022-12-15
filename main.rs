@@ -3226,7 +3226,9 @@ fn main() {
                                 println!(
                                     "\x1b[48;5;54m\x1b[38;5;188mEnter in the Amount to Send\x1b[0m"
                                 );
-
+                                 println!(
+                                    "\x1b[48;5;52m\x1b[38;5;188m ! This Amount is Not Verified ! \x1b[0m"
+                                );
                                 io::stdin().read_line(&mut input).unwrap();
                                 input.pop();
 
@@ -3270,13 +3272,18 @@ fn main() {
                                 //Add zeroes to tail of post memo, 1024
 
                                 loop {
+									
+									if postmemo.len() >= 1025 {
+										println!("\x1b[48;5;52m\x1b[38;5;188mMemo is Too long\x1b[0m");
+										break 'outer;
+
+									}
                                     if postmemo.len() != 1024 {
                                         postmemo.push('0');
                                         continue;
                                     }
                                     break;
                                 }
-
                                 //println!("\ngoodaddy {:?}\nselbal {:?}\nseladdy {:?}\nthe_goodsum {:?}", &goodaddy, &selbal, &seladdy, &the_goodsum);
 
                                 println!("\x1b[48;5;52m\x1b[38;5;188m From: {}\x1b[0m", &seladdy);
