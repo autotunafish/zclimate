@@ -1,1 +1,1 @@
-./zcash-cli -conf=/home/john/zcash.conf z_getbalance u1mjw88ewt7dalstyk042jefqjcgefslsn22gz7ef90xngtfqru8wyh33vmcgrg9mq5xag6vcga73l05s7jcjsyqmevu0x8wm9fypg090l > ~/zcash/src/climateuse2.txt 2>&1
+
