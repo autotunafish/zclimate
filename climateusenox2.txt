@@ -1,1 +1,1 @@
-./zcash-cli -conf=/home/john/zcash.conf z_gettotalbalance > ~/zcash/src/climateuse1.txt 2>&1
+
