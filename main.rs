@@ -3360,8 +3360,9 @@ fn main() {
                                         resend0.push(']');
                                         resend0.push('\'');
                                         resend0.push(' ');
-
-                                        resend0.push_str("10 0.00001 \"AllowRevealedSenders\" ");
+					//NoPrivacy allows wallet to execute whatever actions necessary to complete.
+					//Useful because you can't get the UA receiver balances natively.
+                                        resend0.push_str("10 0.00001 \"NoPrivacy\" ");
 
                                         resend0.push_str(resend00000);
 
