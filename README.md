@@ -47,7 +47,7 @@ and B:
 
 	replace the Cargo.toml file as well.
 
-Add read\write and executable permissions for half the remaining 'climate' files. The easiest way is to just add all permissions to all files but specifically we need 'anyone-read\write' for all files and 'executable' for climatenotify ( , 1, 2, NOX), for climateuseNOX (3, 4, 5) and debugscript. 
+Add read\write and executable permissions for half the remaining 'climate' files. The easiest way is to just add all permissions to all files but specifically we need 'anyone-read\write' for all files and 'executable' for climatenotify ( , 1, 2, NOX), for climateuseNOX (1, 3, 5) and debugscript. 
 
 	Use the file explorer and 
 	highlight all the files. 
