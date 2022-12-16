@@ -3128,7 +3128,8 @@ fn main() {
                                 io::stdin().read_line(&mut input).unwrap();
                                 input.pop();
 
-                                let mut goodaddy = String::from(&input).clone();
+                                 let goodaddy1 = String::from(&input).clone();
+				let mut goodaddy = goodaddy1.replace('"', "");
 
                                 {
                                     {
