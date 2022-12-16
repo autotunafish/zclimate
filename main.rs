@@ -3291,7 +3291,7 @@ fn main() {
                                     "\x1b[48;5;53m\x1b[38;5;188m Amount : {}\x1b[0m",
                                     &the_goodsum
                                 );
-                                println!("\x1b[48;5;52m\x1b[38;5;188m To: {}\x1b[0m", &seladdy);
+                                println!("\x1b[48;5;52m\x1b[38;5;188m To: {}\x1b[0m", &goodaddy);
                                 println!("\x1b[48;5;53m\x1b[38;5;188m Fee: 0.00001\x1b[0m");
 
                                 println!();
