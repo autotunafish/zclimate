@@ -4,6 +4,8 @@ Typically every call to zcash-cli requires typing in a lengthy string and is cum
 
 This program is EXTREMELY BETA, USE AT YOUR OWN RISK!! 
 
+This video covers the setup and basic usage (and some troubleshooting lol!) https://youtu.be/48V5eYNzE34
+
 The program was designed and tested on Ubuntu 20 with the standard installation procedures given for zcashd. The zclimate folder should live in the '/home/"You"' directory (where your 'Desktop', 'Documents', 'Videos" etc. all live, the --example directory given in the program would be /home/ferris). 
 
 The downloaded zclimate contain files that require 
