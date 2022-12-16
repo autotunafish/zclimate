@@ -3845,6 +3845,430 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show 
                 }
             }
 
+		  "S" => {
+                {
+                    let s5 = String::from(" listaddresses ");
+                    let mut resend0 = resend.clone();
+                    let resend0000 = s5.as_str();
+
+                    resend0.push_str(resend00);
+                    resend0.push_str(resend000);
+                    resend0.push_str(resend0000);
+                    resend0.push_str(resend00000);
+
+                    //println!("{}\n", &resend0);
+
+                    println!("\x1b[48;5;58m\x1b[38;5;188mLegacy Addresses\x1b[0m");
+
+                    let mut var_1 = File::create(&sp).expect("no");
+                    var_1.write_all(&resend0.as_bytes()).expect("no");
+                }
+
+                let mut addynum = String::new();
+
+                let mut inotify =
+                    Inotify::init().expect("Error while initializing inotify instance");
+                inotify
+                    .add_watch(&sp2, WatchMask::CLOSE_WRITE)
+                    .expect("Failed to add file watch");
+
+                let mut buffer = [0; 512];
+                let events = inotify
+                    .read_events_blocking(&mut buffer)
+                    .expect("Error while reading events");
+                #[allow(unused_variables)]
+                for event in events {
+                    let k = fs::read_to_string(&sp2).unwrap();
+                    let mut klines = k.split_whitespace();
+                    let mut counter = 1;
+                    loop {
+                        //get first line, if any
+                        let kv = klines.next().clone();
+                        //assert EQ for Some
+                        if kv != None {
+                            //remove Result wrapper
+                            kvc = kv.unwrap();
+				if kvc.starts_with("\"account") {
+				println!();
+				println!("\x1b[48;5;57m\x1b[38;5;187mAccount:  {}\x1b[0m", &klines.next().unwrap());
+                                    
+								}
+                            
+                            if kvc.len() >= 24 {
+                                if kvc.starts_with("\"t1") {
+                                    println!(
+                                        "\x1b[48;5;52m\x1b[38;5;187m{}:  {}\x1b[0m",
+                                        &counter.to_string(),
+                                        &kvc
+                                    );
+
+                                    let takeme = kvc.clone();
+                                    let takenum = counter.to_string().clone();
+                                    addynum.push_str(&takenum);
+                                    addynum.push(' ');
+                                    addynum.push_str(takeme);
+                                    addynum.push(' ');
+                                    counter = counter + 1;
+                                    continue;
+                                }
+                               
+                                if kvc.starts_with("\"u1") {
+                                    
+                                   
+
+                                    {
+                                        {
+                                            let s5 = String::from(" z_listunifiedreceivers ");
+
+                                            let mut zadd = String::from(kvc.clone());
+
+                                            zadd.pop();
+                                            zadd.push(' ');
+
+                                            let zaddy = zadd.replace('"', "");
+                                            //println!("zaddy   {}", &zaddy);
+                                            //println!("zaddybg {:?}", &zaddy);
+
+                                            let mut resend0 = resend.clone();
+                                            let resend0000 = s5.as_str();
+
+                                            resend0.push_str(resend00);
+                                            resend0.push_str(resend000);
+                                            resend0.push_str(resend0000);
+                                            resend0.push_str(zaddy.as_str());
+                                            resend0.push_str(resend00000x);
+
+                                            //println!("{}\n", &resend0);
+
+                                            let mut var_1 = File::create(&rp).expect("no");
+                                            var_1.write_all(&resend0.as_bytes()).expect("no");
+                                        }
+
+                                        let mut inotify = Inotify::init()
+                                            .expect("Error while initializing inotify instance");
+                                        inotify
+                                            .add_watch(&rp2, WatchMask::CLOSE_WRITE)
+                                            .expect("Failed to add file watch");
+
+                                        let mut buffer = [0; 512];
+                                        let events = inotify
+                                            .read_events_blocking(&mut buffer)
+                                            .expect("Error while reading events");
+                                        #[allow(unused_variables)]
+                                        for event in events {
+                                            let k = fs::read_to_string(&rp2).unwrap();
+                                            
+                                            let mut klines = k.split_whitespace();
+                                            loop {
+                                                //get first line, if any
+                                                let kv = klines.next().clone();
+                                                //assert EQ for Some
+                                                if kv != None {
+                                                    //remove Result wrapper
+                                                    kvc = kv.unwrap();
+
+                                                    if kvc.starts_with("\"t1") {
+                                                    println!("\x1b[48;5;58m\x1b[38;5;187mReceivers\x1b[0m");
+                                                        println!("\x1b[48;5;52m\x1b[38;5;187m{}:  {}\x1b[0m", &counter.to_string(), &kvc);
+
+                                                        let takeme = kvc.clone();
+                                                        let takenum = counter.to_string().clone();
+                                                        addynum.push_str(&takenum);
+                                                        addynum.push(' ');
+                                                        addynum.push_str(takeme);
+                                                        addynum.push(' ');
+                                                        counter = counter + 1;
+                                                        //println!("taken!");
+                                                    }
+                                                    continue;
+                                                }
+                                                break;
+                                            }
+
+                                            let ten_millis = time::Duration::from_millis(50);
+                                            let now = time::Instant::now();
+
+                                            thread::sleep(ten_millis);
+                                        }
+                                    }
+
+                                    continue;
+                                }
+                            }
+
+                            continue;
+                        }
+                        break;
+                    }
+                }
+                
+                
+                let zaddynum = addynum.replace(',', "");
+                    //println!("{}", &zaddynum);
+                    println!("\x1b[48;5;58m\x1b[38;5;188mEnter Address Number to Select\x1b[0m");
+
+                    let mut input = String::new();
+
+                    io::stdin().read_line(&mut input).unwrap();
+                    //Take input and match to the zaddynum
+                    //with klines
+                    //println!("{:?}", &input);
+                    input.pop();
+
+                    let mut taddy = String::new();
+                    let mut klines = zaddynum.split_whitespace();
+                    loop {
+                        //get first line, if any
+                        let kv = klines.next().clone();
+                        //assert EQ for Some
+                        if kv != None {
+                            //remove Result wrapper
+                            kvc = kv.unwrap();
+                            //match here
+
+                            if input == kvc {
+				taddy = klines.next().unwrap().to_string();
+								
+                            }
+				continue
+				}
+			break
+			}
+                
+                //println!("the taddy {:?}", &taddy);
+                let goodtadd = taddy.replace('"', "");
+                //println!("goodtadd  {:?}", &goodtadd);
+
+                
+                  println!("\x1b[48;5;58m\x1b[38;5;188mEnter Your Message to Sign\x1b[0m");
+
+                    let mut input = String::new();
+
+                    io::stdin().read_line(&mut input).unwrap();
+					input.pop();
+					
+					
+{
+                {
+                    //println!("G - getinfo ok!");
+
+                    let s5 = String::from(" signmessage ");
+                    let mut resend0 = resend.clone();
+                    let resend0000 = s5.as_str();
+
+                    resend0.push_str(resend00);
+                    resend0.push_str(resend000);
+                    resend0.push_str(resend0000);
+					resend0.push_str(&goodtadd);
+					resend0.push(' ');
+					resend0.push('"');
+                    resend0.push_str(&input);
+					resend0.push('"');
+					resend0.push(' ');
+
+                    resend0.push_str(resend00000);
+
+                    //println!("resend0 {}", &resend0);
+
+                    let mut var_1 = File::create(&sp).expect("no");
+                    var_1.write_all(&resend0.as_bytes()).expect("no");
+                }
+
+                let mut inotify =
+                    Inotify::init().expect("Error while initializing inotify instance");
+                inotify
+                    .add_watch(&sp2, WatchMask::CLOSE_WRITE)
+                    .expect("Failed to add file watch");
+
+                let mut buffer = [0; 512];
+                let events = inotify
+                    .read_events_blocking(&mut buffer)
+                    .expect("Error while reading events");
+                #[allow(unused_variables)]
+                for event in events {
+                    let mut k = fs::read_to_string(&sp2).unwrap();
+                    k.pop();
+                    println!();
+					println!("\x1b[48;5;58m\x1b[38;5;188mSignature: \x1b[0m");
+
+                    println!("\x1b[48;5;23m\x1b[38;5;187m{}\x1b[0m", &k);
+					println!();
+
+					println!("\x1b[48;5;58m\x1b[38;5;188mSigning Address: \x1b[0m");
+					
+					println!("\x1b[48;5;52m\x1b[38;5;187m{}\x1b[0m", &goodtadd);
+                    println!();
+
+					println!("\x1b[48;5;58m\x1b[38;5;188mMessage: \x1b[0m");
+
+					println!("\x1b[48;5;53m\x1b[38;5;187m{}\x1b[0m", &input);
+
+                    
+                    
+                    
+                    
+                }
+            }
+                
+            }
+            
+		
+		
+		
+             "V" => {
+                {
+                    //println!("G - getinfo ok!");
+println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
+
+                    let mut input = String::new();
+
+                    io::stdin().read_line(&mut input).unwrap();
+                    input.pop();
+
+                    
+                     		{
+                                  {
+                                        let s5 = String::from(" z_validateaddress ");
+
+                                        let mut zadd = String::from(&input).clone();
+
+                                        zadd.push(' ');
+
+                                        let zaddy = zadd.replace('"', "");
+                                        //println!("zaddy   {}", &zaddy);
+                                        //println!("zaddybg {:?}", &zaddy);
+
+                                        let mut resend0 = resend.clone();
+                                        let resend0000 = s5.as_str();
+
+                                        resend0.push_str(resend00);
+                                        resend0.push_str(resend000);
+                                        resend0.push_str(resend0000);
+                                        resend0.push_str(zaddy.as_str());
+                                        resend0.push_str(resend00000x);
+
+                                        //println!("{}\n", &resend0);
+
+                                        let mut var_1 = File::create(&rp).expect("no");
+                                        var_1.write_all(&resend0.as_bytes()).expect("no");
+                                    }
+
+                                    let mut inotify = Inotify::init()
+                                        .expect("Error while initializing inotify instance");
+                                    inotify
+                                        .add_watch(&rp2, WatchMask::CLOSE_WRITE)
+                                        .expect("Failed to add file watch");
+
+                                    let mut buffer = [0; 512];
+                                    let events = inotify
+                                        .read_events_blocking(&mut buffer)
+                                        .expect("Error while reading events");
+                                    #[allow(unused_variables)]
+                                    for event in events {
+                                        let k = fs::read_to_string(&rp2).unwrap();
+                                        let mut klines = k.split_whitespace();
+                                        loop {
+                                            //get first line, if any
+                                            let kv = klines.next().clone();
+                                            //assert EQ for Some
+                                            if kv != None {
+                                                //remove Result wrapper
+                                                kvc = kv.unwrap();
+
+                                                match kvc {
+                                                    "[" | "]" | "{" | "}" | "\\" | "}," | "],"
+                                                    | "\"addresses\":" | "\"source\":" => {}
+                                                    "\"seedfp\":" | "\"diversifier_index\":" => {
+                                                        klines.next();
+                                                    }
+                                                    _ => (),
+                                                }
+                                                if kvc.starts_with("\"isvalid\"") {
+                                                    let bewl = klines.next().clone();
+                                                    bewl.unwrap();
+                                                    //println!("bewl   {:?}", &bewl);
+
+                                                    if bewl.expect("bewlfail").starts_with("false")
+                                                    {
+                                                        println!("\x1b[48;5;52m\x1b[38;5;187mThe Address is Invalid, Please Try Again\x1b[0m");
+                                                        {
+                                                            break;
+                                                        }
+                                                    }
+                                                }
+                                                
+                                                
+                                                continue;
+                                            }
+                                            break;
+                                        }
+                                        //println!("\x1b[48;5;23m\x1b[38;5;187m{:?}\x1b[0m", &k);
+                                    }
+                                }
+                    
+                    
+                    println!("\x1b[48;5;58m\x1b[38;5;188mAddress is Valid\x1b[0m");
+					
+					let taddy = String::from(input).clone();
+                    //taddy = input.clone();
+                    println!();
+                    println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signature \x1b[0m");
+
+                    let mut signat = String::new();
+                    io::stdin().read_line(&mut signat).unwrap();
+					signat.pop();
+					println!();
+					println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signed Message \x1b[0m");
+
+                    let mut emesgee = String::new();
+
+                    io::stdin().read_line(&mut emesgee).unwrap();
+                    emesgee.pop();
+                    
+			println!();
+                    
+                    let s5 = String::from(" verifymessage ");
+                    let mut resend0 = resend.clone();
+                    let resend0000 = s5.as_str();
+
+                    resend0.push_str(resend00);
+                    resend0.push_str(resend000);
+                    resend0.push_str(resend0000);
+					resend0.push_str(&taddy);
+					resend0.push(' ');
+					resend0.push_str(&signat);
+					resend0.push(' ');
+					resend0.push('"');
+					resend0.push_str(&emesgee);
+					resend0.push('"');
+					resend0.push(' ');
+                    resend0.push_str(resend00000);
+
+                    //println!("{}\n", &resend0);
+
+                    let mut var_1 = File::create(&sp).expect("no");
+                    var_1.write_all(&resend0.as_bytes()).expect("no");
+                }
+
+                let mut inotify =
+                    Inotify::init().expect("Error while initializing inotify instance");
+                inotify
+                    .add_watch(&sp2, WatchMask::CLOSE_WRITE)
+                    .expect("Failed to add file watch");
+
+                let mut buffer = [0; 512];
+                let events = inotify
+                    .read_events_blocking(&mut buffer)
+                    .expect("Error while reading events");
+                #[allow(unused_variables)]
+                for event in events {
+                    let k = fs::read_to_string(&sp2).unwrap();
+                    
+                    println!("\x1b[48;5;23m\x1b[38;5;187m{}\x1b[0m", &k);
+					println!();
+                }
+            }
+		
             "X" => {
                 println!("\x1b[48;5;52m\x1b[38;5;187mExiting Now! Goodbye!\x1b[0m");
                 process::exit(1);
