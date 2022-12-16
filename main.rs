@@ -4206,7 +4206,7 @@ println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
                                 }
                     
                     
-                    println!("\x1b[48;5;58m\x1b[38;5;188mAddress is Valid\x1b[0m");
+                   // println!("\x1b[48;5;58m\x1b[38;5;188mAddress is Valid\x1b[0m");
 					
 			let taddy = String::from(input).clone();
                     //taddy = input.clone();
