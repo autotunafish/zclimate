@@ -221,7 +221,7 @@ fn main() {
     loop {
         //Select an Option
         println!();
-println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show RX History | B - Wallet | A - All Addresses | N - New Account | F - New Unified Address | H - Get All TXs | C - z_getbalance | O - Operations | S - Sign Message | Verify message | X - Exit\x1b[0m");
+println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show RX History | B - Wallet | A - All Addresses | N - New Account | F - New Unified Address | H - Get All TXs | C - z_getbalance | O - Operations | S - Sign Message | V - Verify message | X - Exit\x1b[0m");
         let mut input = String::new();
 
         io::stdin().read_line(&mut input).unwrap();
