@@ -3124,7 +3124,7 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show 
 
                                 let mut input = String::new();
 
-                                println!("\x1b[48;5;58m\x1b[38;5;188mEnter  S  to Send Funds or Enter Any Other Input to Return\x1b[0m");
+                                println!("\x1b[48;5;52m\x1b[38;5;188mEnter  S  to Send Funds\x1b[0m");
                                 println!("\x1b[48;5;58m\x1b[38;5;188mEnter Any Other Input to Return\x1b[0m");
 
                                 io::stdin().read_line(&mut input).unwrap();
