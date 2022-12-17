@@ -221,7 +221,7 @@ fn main() {
     loop {
         //Select an Option
         println!();
-println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show RX History | B - Wallet | A - All Addresses | N - New Account | F - New Unified Address | H - Get All TXs | C - z_getbalance | O - Operations | S - Sign Message | V - Verify message | X - Exit\x1b[0m");
+println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show RX History | B - Wallet | A - All Addresses | N - New Account | F - New Unified Address | H - Get All TXs | C - z_getbalance | O - Operations | S - Sign Message | V - Verify Message | R - List Unified Receivers | X - Exit \x1b[0m");
         let mut input = String::new();
 
         io::stdin().read_line(&mut input).unwrap();
@@ -4300,6 +4300,64 @@ println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
                 }
             }
              
+		   "R" => {
+                {
+
+                    let s5 = String::from(" z_listunifiedreceivers ");
+
+                    println!("\x1b[48;5;58m\x1b[38;5;188mPaste in Your Address Below\x1b[0m");
+
+                    let mut zadd = String::new();
+
+                    io::stdin().read_line(&mut zadd).unwrap();
+                    zadd.pop();
+                    zadd.push(' ');
+
+                    let zaddy = zadd.replace('"', "");
+                    //println!("zaddy   {}", &zaddy);
+                    //println!("zaddybg {:?}", &zaddy);
+
+                    let mut resend0 = resend.clone();
+                    let resend0000 = s5.as_str();
+
+                    resend0.push_str(resend00);
+                    resend0.push_str(resend000);
+                    resend0.push_str(resend0000);
+                    resend0.push_str(zaddy.as_str());
+                    resend0.push_str(resend00000);
+
+                    //println!("{}\n", &resend0);
+
+                    let mut var_1 = File::create(&sp).expect("no");
+                    var_1.write_all(&resend0.as_bytes()).expect("no");
+                }
+
+                let mut inotify =
+                    Inotify::init().expect("Error while initializing inotify instance");
+                inotify
+                    .add_watch(&sp2, WatchMask::CLOSE_WRITE)
+                    .expect("Failed to add file watch");
+
+                let mut buffer = [0; 512];
+                let events = inotify
+                    .read_events_blocking(&mut buffer)
+                    .expect("Error while reading events");
+                #[allow(unused_variables)]
+                for event in events {
+                    let mut k = fs::read_to_string(&sp2).unwrap();
+
+                    k.pop();
+                    if k.contains("error") != true {
+                        println!("\x1b[48;5;23m\x1b[38;5;187mReceivers:\x1b[0m");
+                        println!("\x1b[48;5;23m\x1b[38;5;187m{}\x1b[0m", &k);
+                    }
+                    if k.contains("error") == true {
+                        println!(
+                            "\x1b[48;5;52m\x1b[38;5;187mInvalid Input, Please Try Again\x1b[0m"
+                        );
+                    }
+                }
+            }
 		
             "X" => {
                 println!("\x1b[48;5;52m\x1b[38;5;187mExiting Now! Goodbye!\x1b[0m");
