@@ -1527,7 +1527,15 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show 
                         if kv != None {
                             //remove Result wrapper
                             kvc = kv.unwrap();
+				 match kvc {
 
+                                "\"account\":"  => {
+					println!();
+                                    println!("\x1b[48;5;58m\x1b[38;5;188m{}{}\x1b[0m", &kvc, &klines.next().unwrap())
+                                }
+
+                                _ => (),
+                            }
                             if kvc.len() >= 24 {
                                 if kvc.starts_with("\"t1") {
                                     println!(
@@ -2579,6 +2587,17 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show 
                             //remove Result wrapper
                             kvc = kv.unwrap();
 
+				 match kvc {
+
+                                "\"account\":"  => {
+					println!();
+                                    println!("\x1b[48;5;58m\x1b[38;5;188m{}{}\x1b[0m", &kvc, &klines.next().unwrap())
+                                }
+
+                                _ => (),
+                            }
+				
+				
                             if kvc.len() >= 24 {
                                 if kvc.starts_with("\"t1") {
                                     println!(
