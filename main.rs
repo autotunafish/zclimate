@@ -3220,6 +3220,13 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show 
                                                     }
                                                 }
 
+						     if kvc.contains("error") {
+                                                println!("\x1b[48;5;52m\x1b[38;5;187mThe Address is Invalid, Please Try Again\x1b[0m");
+                                                        {
+                                                            break 'outer;
+                                                        }
+                                                }
+						    
                                                 continue;
                                             }
                                             break;
