@@ -4114,8 +4114,7 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show 
             
 		
 		
-		
-             "V" => {
+		  "V" => {
                 {
                    
 println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
@@ -4124,7 +4123,12 @@ println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
 
                     io::stdin().read_line(&mut input).unwrap();
                     input.pop();
-                
+					let mut taddy = String::from(&input).clone();
+					if taddy.len() == 0 {
+					println!("\x1b[48;5;52m\x1b[38;5;187mThe Address is Invalid, Please Try Again\x1b[0m");
+					taddy.push_str("make_fail");
+					}
+
                      		{
                                   {
                                         let s5 = String::from(" z_validateaddress ");
@@ -4190,6 +4194,8 @@ println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
                                                     if bewl.expect("bewlfail").starts_with("false")
                                                     {
                                                         println!("\x1b[48;5;52m\x1b[38;5;187mThe Address is Invalid, Please Try Again\x1b[0m");
+                                                        
+                                                        taddy.push_str("make_fail");
                                                         {
                                                             break;
                                                         }
@@ -4205,19 +4211,19 @@ println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
                                     }
                                 }
                     
-                    
-                   // println!("\x1b[48;5;58m\x1b[38;5;188mAddress is Valid\x1b[0m");
-					
-			let taddy = String::from(input).clone();
-                    //taddy = input.clone();
+                  
                     println!();
                     println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signature \x1b[0m");
 
                     let mut signat = String::new();
                     io::stdin().read_line(&mut signat).unwrap();
-			signat.pop();
-			println!();
-			println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signed Message \x1b[0m");
+					signat.pop();
+					if signat.len() == 0 {
+							signat.push_str("make_fail");
+							}
+					
+					println!();
+					println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signed Message \x1b[0m");
 
                     let mut emesgee = String::new();
 
@@ -4233,14 +4239,14 @@ println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
                     resend0.push_str(resend00);
                     resend0.push_str(resend000);
                     resend0.push_str(resend0000);
-			resend0.push_str(&taddy);
-			resend0.push(' ');
-			resend0.push_str(&signat);
-			resend0.push(' ');
-			resend0.push('"');
-			resend0.push_str(&emesgee);
-			resend0.push('"');
-			resend0.push(' ');
+					resend0.push_str(&taddy);
+					resend0.push(' ');
+					resend0.push_str(&signat);
+					resend0.push(' ');
+					resend0.push('"');
+					resend0.push_str(&emesgee);
+					resend0.push('"');
+					resend0.push(' ');
                     resend0.push_str(resend00000);
 
                     //println!("{}\n", &resend0);
@@ -4267,6 +4273,7 @@ println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
 					println!();
                 }
             }
+             
 		
             "X" => {
                 println!("\x1b[48;5;52m\x1b[38;5;187mExiting Now! Goodbye!\x1b[0m");
