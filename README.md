@@ -179,6 +179,6 @@ Notes: The program ran fine all through testing until nearly the end of writing 
 
 During the 'Send' process, it is possible to enter an invalid 'amount' and the process continue as it does not parse or check the input inside a loop which is required or else it will break the main loop and Exit completely. There was a check against the total balance - 0.00001 for sufficient funds before the option to 'Send' but not a second time. The tx will, however, abort by default anyways with any unknown input (must enter capital 'Y' to send) and even then the z_sendmany call will fail without problem. 
 
-Extra: The 'debugscript' is a bash script that outputs new lines added to the debug.log file in the terminal. It is an extra program unrelated to the first and is for easily viewing the current debug.log information without opening the file which is well over 1 GB and takes a very large amount of resources to even execute. To run it, navigate to your .zcash folder and run the following command (Terminate with Ctrl C)
+Extra: The 'debugscript' is a bash script that, fist, outputs the last 10 lines and then outputs any new lines added to the debug.log file in the terminal. It is an extra program unrelated to the first and is for easily viewing the current debug.log information without opening the file which typially takes a very large amount of resources to even execute. To run it, navigate to your .zcash folder and run the following command (Terminate with Ctrl C)
   
   	./debugscript
