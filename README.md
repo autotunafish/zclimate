@@ -52,18 +52,43 @@ and B:
 Add read\write and executable permissions for half the remaining 'climate' files. The easiest way is to just add all permissions to all files but specifically we need 'anyone-read\write' for all files and 'executable' for climatenotify ( , 1, 2, NOX), for climateuseNOX (1, 3, 5) and debugscript. 
 
 	Use the file explorer and 
-	highlight all the files. 
+	highlight all the files except 'readme' and 'git'. 
 	Right-click and select propreties,
-	set read\write for all users and 
-	set allow running as executable.
+	set read\write for all users.
+	
+Then:
+	Highlight:
+		'climatenotify', 
+		'climatenotify1', 
+		'climatenotify2',
+		'climatenotifyNOX', 
+		'climateusenox1.txt', 
+		'climateusenox3.txt',
+		'climateusenox5.txt',
+		'debugscript'
+	Right-click and select properties.
+	Select the allow running as executable checkbox.
 	
 	(Todo: add the chmod 600(?) method)
 
 Then:
 
-	Copy debugscript (1) file into the .zcash folder and
-	Copy all the rest (13) of the files into the zcashd/src folder.
+	Copy 'debugscript' (1) file into the .zcash folder and
+	Copy all the rest (13) of the files into the zcashd/src folder (except the 'git' and 'readme').
 	
+		'climatenotify', 
+		'climatenotify1', 
+		'climatenotify2',
+		'climatenotifyNOX', 
+		'climateuse0.txt', 
+		'climateuse1.txt', 
+		'climateuse2.txt',
+		'climateusenox.txt', 
+		'climateusenox1.txt', 
+		'climateusenox2.txt',
+		'climateusenox3.txt', 
+		'climateusenox4.txt',
+		'climateusenox5.txt',
 
 Run the climatenotify bash scripts. This can be done by either opening 3 seperate terminals (or terminal tabs) and running the scripts individually or by opening one seperate terminal and running climatenotifyNOX. The program was tested mainly with the former and is recommended use but the latter seemed to work as well, the difference in performance is unknown(!!).
 
@@ -134,6 +159,15 @@ You'll be presented with a list of options.
 		
 	| O - Operations 
 		Shows all opids in memory with z_getoperationstatus
+		
+	| S - Sign Message 
+		Allows signmessage
+		
+	| V - Verify Message 
+		Allows verifymessage
+		
+	| R - List Unified Receivers |
+		Allows z_listunifiedreceivers
 		
 	| X - Exit
 		Close the program
