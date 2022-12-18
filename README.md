@@ -57,15 +57,17 @@ Add read\write and executable permissions for half the remaining 'climate' files
 	set read\write for all users.
 	
 Then:
-	Highlight:
-		'climatenotify', 
-		'climatenotify1', 
-		'climatenotify2',
-		'climatenotifyNOX', 
-		'climateusenox1.txt', 
-		'climateusenox3.txt',
-		'climateusenox5.txt',
-		'debugscript'
+	Highlight
+	
+	'climatenotify', 
+	'climatenotify1', 
+	'climatenotify2',
+	'climatenotifyNOX', 
+	'climateusenox1.txt', 
+	'climateusenox3.txt',
+	'climateusenox5.txt',
+	'debugscript'
+	
 	Right-click and select properties.
 	Select the allow running as executable checkbox.
 	
