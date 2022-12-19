@@ -221,7 +221,7 @@ fn main() {
     loop {
         //Select an Option
         println!();
-println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show RX History | B - Wallet | A - All Addresses | N - New Account | F - New Unified Address | H - Get All TXs | C - z_getbalance | O - Operations | S - Sign Message | V - Verify Message | R - List Unified Receivers | X - Exit \x1b[0m");
+println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show RX History | B - Wallet | A - All Addresses | N - New Account | F - New Unified Address | H - Get All TXs | I - Get Recent TXs | C - z_getbalance | O - Operations | S - Sign Message | V - Verify Message | R - List Unified Receivers | X - Exit \x1b[0m");
         let mut input = String::new();
 
         io::stdin().read_line(&mut input).unwrap();
@@ -358,7 +358,1140 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show 
                     }
                 }
             }
+ "I" => {
+                println!("\x1b[48;5;52m\x1b[38;5;187m ! This May Take a Few Minutes, Procede Anyways?\x1b[0m");
+                println!("\x1b[48;5;58m\x1b[38;5;187mEnter Y to Continue or Enter Any Other Input to Return\x1b[0m");
 
+                let mut zadd = String::from(&dblpathline.clone());
+
+                io::stdin().read_line(&mut zadd).unwrap();
+                zadd.pop();
+                let yes = "Y";
+
+                let mut zaddy = zadd.replace('"', "");
+                //println!("zaddy   {}", &zaddy);
+                //println!("zaddybg {:?}", &zaddy);
+
+                if zaddy.contains(&yes) == true {
+                    zaddy.clear();
+
+                    let p = String::from("/home/john/.zcash/debug.log");
+
+                    println!(
+                        "\x1b[48;5;58m\x1b[38;5;187mFetching TX History, Please Wait...\x1b[0m"
+                    );
+
+                    println!();
+
+                    //println!("{}", &p);
+                    let mut list = String::new();
+                    //let mut counter = 0;
+                    let mut ka = fs::read_to_string(&p).unwrap();
+                    let mut cut = &ka.len() / 20;
+                    cut = cut * 19;
+                    let k = ka.split_off(cut);
+                    
+                    
+                    let mut klines = k.split_whitespace();
+                    loop {
+                        //get first line, if any
+                        let kv = klines.next().clone();
+                        //assert EQ for Some
+
+                        if kv != None {
+                            //remove Result wrapper
+                            let kvc = kv.unwrap();
+
+                            if kvc.contains("AddToWallet") == true {
+                                let clinn = klines.next().clone();
+                                let linn = clinn.unwrap();
+                                //println!("{}", &linn);
+
+                                if list.contains(&linn) != true {
+                                    list.push_str(linn);
+                                    list.push(' ');
+                                }
+                            }
+
+                            continue;
+                        }
+
+                        break;
+                    }
+                    //println!("{:?}", &list);
+                    //println!("Found {} TXID's", &list.len());
+
+                    let mut counter = 0;
+                    klines = list.split_whitespace();
+                    loop {
+                        //get first line, if
+                        counter = counter + 1;
+                        if counter % 20 == 0 {
+                            println!(
+                                "\x1b[48;5;52m\x1b[38;5;187mPress Enter to List Next 20\x1b[0m"
+                            );
+
+                            let mut input = String::new();
+
+                            io::stdin().read_line(&mut input).unwrap();
+                        }
+
+                        let kv = klines.next().clone();
+                        //assert EQ for Some
+                        if kv != None {
+                            //remove Result wrapper
+                            let mut kvc = kv.unwrap();
+                            //println!("{:?}", &kvc);
+                            let faddy = String::from(kvc.clone());
+
+                            println!();
+                            println!("\x1b[48;5;32m\x1b[38;5;187m #: {}\x1b[0m", &counter);
+
+                            {
+                                {
+                                    //println!("C - z_getbalance ok!");
+
+                                    let s5 = String::from(" gettransaction ");
+                                    //println!("Paste in your sapling address below");
+
+                                    let mut zadd = String::from(kvc).clone();
+
+                                    //io::stdin().read_line(&mut zadd).unwrap();
+                                    //zadd.pop();
+                                    zadd.push(' ');
+
+                                    let zaddy = zadd.replace('"', "");
+                                    //println!("zaddy   {}", &zaddy);
+                                    //println!("zaddybg {:?}", &zaddy);
+
+                                    let mut resend0 = resend.clone();
+                                    let resend0000 = s5.as_str();
+
+                                    resend0.push_str(resend00);
+                                    resend0.push_str(resend000);
+                                    resend0.push_str(resend0000);
+                                    resend0.push_str(zaddy.as_str());
+                                    resend0.push_str(resend00000x);
+
+                                    //println!("{}\n", &resend0);
+
+                                    let mut var_1 = File::create(&rp).expect("no");
+                                    var_1.write_all(&resend0.as_bytes()).expect("no");
+                                }
+
+                                let mut inotify = Inotify::init()
+                                    .expect("Error while initializing inotify instance");
+                                inotify
+                                    .add_watch(&rp2, WatchMask::CLOSE_WRITE)
+                                    .expect("Failed to add file watch");
+
+                                let mut buffer = [0; 512];
+                                let events = inotify
+                                    .read_events_blocking(&mut buffer)
+                                    .expect("Error while reading events");
+                                #[allow(unused_variables)]
+                                for event in events {
+                                    let k = fs::read_to_string(&rp2).unwrap();
+                                    let mut klines = k.split_whitespace();
+                                    loop {
+                                        //get first line, if any
+                                        let kv = klines.next().clone();
+                                        //assert EQ for Some
+                                        if kv != None {
+                                            //remove Result wrapper
+                                            kvc = kv.unwrap();
+
+                                            match kvc {
+                                                "\"time\":" => {
+                                                    let timeget = klines.next();
+                                                    if timeget != None {
+                                                        //println!("{:?}", &timeget);
+                                                        let mut gottime =
+                                                            timeget.clone().expect("").to_string();
+                                                        gottime.pop();
+                                                        let goime = gottime.parse().expect("");
+                                                        //println!("{:?}", &goime);
+
+                                                        #[allow(deprecated)]
+                                                        let dt = Utc.timestamp(goime, 0);
+                                                        println!();
+                                                        println!("\x1b[48;5;59m\x1b[38;5;187m{}{}\x1b[0m", &kvc, &dt);
+                                                    }
+                                                }
+
+                                                _ => (),
+                                            }
+
+                                            continue;
+                                        }
+                                        break;
+                                    }
+
+                                    let ten_millis = time::Duration::from_millis(50);
+                                    let now = time::Instant::now();
+
+                                    thread::sleep(ten_millis);
+
+                                    //println!("\x1b[48;5;23m\x1b[38;5;187m{:?}\x1b[0m", &k);
+                                }
+                            }
+
+                            {
+                                {
+                                    //println!("C - z_getbalance ok!");
+
+                                    let s5 = String::from(" z_viewtransaction ");
+                                    //println!("Paste in your sapling address below");
+
+                                    let mut zadd = String::from(faddy).clone();
+
+                                    zadd.push(' ');
+
+                                    let zaddy = zadd.replace('"', "");
+                                    //println!("zaddy   {}", &zaddy);
+                                    //println!("zaddybg {:?}", &zaddy);
+
+                                    let mut resend0 = resend.clone();
+                                    let resend0000 = s5.as_str();
+
+                                    resend0.push_str(resend00);
+                                    resend0.push_str(resend000);
+                                    resend0.push_str(resend0000);
+                                    resend0.push_str(zaddy.as_str());
+                                    resend0.push_str(resend00000y);
+
+                                    //println!("{}\n", &resend0);
+
+                                    let mut var_1 = File::create(&tp).expect("no");
+                                    var_1.write_all(&resend0.as_bytes()).expect("no");
+                                }
+
+                                let mut inotify = Inotify::init()
+                                    .expect("Error while initializing inotify instance");
+                                inotify
+                                    .add_watch(&tp2, WatchMask::CLOSE_WRITE)
+                                    .expect("Failed to add file watch");
+
+                                let mut buffer = [0; 512];
+                                let events = inotify
+                                    .read_events_blocking(&mut buffer)
+                                    .expect("Error while reading events");
+                                #[allow(unused_variables)]
+                                for event in events {
+                                    let k = fs::read_to_string(&tp2).unwrap();
+                                    let mut klines = k.split_whitespace();
+                                    loop {
+                                        //get first line, if any
+                                        let kv = klines.next().clone();
+                                        //assert EQ for Some
+                                        if kv != None {
+                                            //remove Result wrapper
+                                            kvc = kv.unwrap();
+
+                                            if kvc.len() >= 400 {
+                                                let mut h = String::from(kvc.clone());
+                                                h = h.replace("\"", "");
+
+                                                loop {
+                                                    if h.len() == 0 {
+                                                        break;
+                                                    }
+                                                    let mut x = String::new();
+                                                    loop {
+                                                        if h.len() == 0 {
+                                                            break;
+                                                        }
+                                                        let y = h.remove(0).to_ascii_lowercase();
+                                                        if y == '\u{20}' {
+                                                            continue;
+                                                        }
+                                                        x.push(y);
+                                                        break;
+                                                    }
+                                                    loop {
+                                                        if h.len() == 0 {
+                                                            break;
+                                                        }
+                                                        let z = h.remove(0).to_ascii_lowercase();
+                                                        if z == '\u{20}' {
+                                                            continue;
+                                                        }
+                                                        x.push(z);
+                                                        break;
+                                                    }
+                                                    match x.as_str() {
+                                                        //decoded output
+                                                        "00" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{00}\x1b[0m");
+                                                        }
+                                                        "01" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{01}\x1b[0m");
+                                                        }
+                                                        "02" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{02}\x1b[0m");
+                                                        }
+                                                        "03" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{03}\x1b[0m");
+                                                        }
+                                                        "04" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{04}\x1b[0m");
+                                                        }
+                                                        "05" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{05}\x1b[0m");
+                                                        }
+                                                        "06" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{06}\x1b[0m");
+                                                        }
+                                                        "07" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{07}\x1b[0m");
+                                                        }
+                                                        "08" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{08}\x1b[0m");
+                                                        }
+                                                        "09" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{09}\x1b[0m");
+                                                        }
+                                                        "0a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0a}\x1b[0m");
+                                                        }
+                                                        "0b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0b}\x1b[0m");
+                                                        }
+                                                        "0c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0c}\x1b[0m");
+                                                        }
+                                                        "0d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0d}\x1b[0m");
+                                                        }
+                                                        "0e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0e}\x1b[0m");
+                                                        }
+                                                        "0f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0f}\x1b[0m");
+                                                        }
+                                                        "10" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{10}\x1b[0m");
+                                                        }
+                                                        "11" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{11}\x1b[0m");
+                                                        }
+                                                        "12" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{12}\x1b[0m");
+                                                        }
+                                                        "13" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{13}\x1b[0m");
+                                                        }
+                                                        "14" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{14}\x1b[0m");
+                                                        }
+                                                        "15" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{15}\x1b[0m");
+                                                        }
+                                                        "16" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{16}\x1b[0m");
+                                                        }
+                                                        "17" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{17}\x1b[0m");
+                                                        }
+                                                        "18" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{18}\x1b[0m");
+                                                        }
+                                                        "19" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{19}\x1b[0m");
+                                                        }
+                                                        "1a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{1a}\x1b[0m");
+                                                        }
+                                                        "1b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{1b}\x1b[0m");
+                                                        }
+                                                        "1c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{1c}\x1b[0m");
+                                                        }
+                                                        "1d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{1d}\x1b[0m");
+                                                        }
+                                                        "1e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{1e}\x1b[0m");
+                                                        }
+                                                        "1f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{1f}\x1b[0m");
+                                                        }
+                                                        "20" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{20}\x1b[0m");
+                                                        }
+                                                        "21" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{21}\x1b[0m");
+                                                        }
+                                                        "22" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{22}\x1b[0m");
+                                                        }
+                                                        "23" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{23}\x1b[0m");
+                                                        }
+                                                        "24" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{24}\x1b[0m");
+                                                        }
+                                                        "25" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{25}\x1b[0m");
+                                                        }
+                                                        "26" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{26}\x1b[0m");
+                                                        }
+                                                        "27" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{27}\x1b[0m");
+                                                        }
+                                                        "28" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{28}\x1b[0m");
+                                                        }
+                                                        "29" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{29}\x1b[0m");
+                                                        }
+                                                        "2a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{2a}\x1b[0m");
+                                                        }
+                                                        "2b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{2b}\x1b[0m");
+                                                        }
+                                                        "2c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{2c}\x1b[0m");
+                                                        }
+                                                        "2d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{2d}\x1b[0m");
+                                                        }
+                                                        "2e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{2e}\x1b[0m");
+                                                        }
+                                                        "2f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{2f}\x1b[0m");
+                                                        }
+                                                        "30" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{30}\x1b[0m");
+                                                        }
+                                                        "31" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{31}\x1b[0m");
+                                                        }
+                                                        "32" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{32}\x1b[0m");
+                                                        }
+                                                        "33" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{33}\x1b[0m");
+                                                        }
+                                                        "34" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{34}\x1b[0m");
+                                                        }
+                                                        "35" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{35}\x1b[0m");
+                                                        }
+                                                        "36" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{36}\x1b[0m");
+                                                        }
+                                                        "37" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{37}\x1b[0m");
+                                                        }
+                                                        "38" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{38}\x1b[0m");
+                                                        }
+                                                        "39" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{39}\x1b[0m");
+                                                        }
+                                                        "3a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{3a}\x1b[0m");
+                                                        }
+                                                        "3b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{3b}\x1b[0m");
+                                                        }
+                                                        "3c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{3c}\x1b[0m");
+                                                        }
+                                                        "3d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{3d}\x1b[0m");
+                                                        }
+                                                        "3e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{3e}\x1b[0m");
+                                                        }
+                                                        "3f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{3f}\x1b[0m");
+                                                        }
+                                                        "40" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{40}\x1b[0m");
+                                                        }
+                                                        "41" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{41}\x1b[0m");
+                                                        }
+                                                        "42" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{42}\x1b[0m");
+                                                        }
+                                                        "43" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{43}\x1b[0m");
+                                                        }
+                                                        "44" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{44}\x1b[0m");
+                                                        }
+                                                        "45" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{45}\x1b[0m");
+                                                        }
+                                                        "46" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{46}\x1b[0m");
+                                                        }
+                                                        "47" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{47}\x1b[0m");
+                                                        }
+                                                        "48" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{48}\x1b[0m");
+                                                        }
+                                                        "49" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{49}\x1b[0m");
+                                                        }
+                                                        "4a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{4a}\x1b[0m");
+                                                        }
+                                                        "4b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{4b}\x1b[0m");
+                                                        }
+                                                        "4c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{4c}\x1b[0m");
+                                                        }
+                                                        "4d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{4d}\x1b[0m");
+                                                        }
+                                                        "4e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{4e}\x1b[0m");
+                                                        }
+                                                        "4f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{4f}\x1b[0m");
+                                                        }
+                                                        "50" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{50}\x1b[0m");
+                                                        }
+                                                        "51" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{51}\x1b[0m");
+                                                        }
+                                                        "52" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{52}\x1b[0m");
+                                                        }
+                                                        "53" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{53}\x1b[0m");
+                                                        }
+                                                        "54" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{54}\x1b[0m");
+                                                        }
+                                                        "55" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{55}\x1b[0m");
+                                                        }
+                                                        "56" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{56}\x1b[0m");
+                                                        }
+                                                        "57" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{57}\x1b[0m");
+                                                        }
+                                                        "58" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{58}\x1b[0m");
+                                                        }
+                                                        "59" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{59}\x1b[0m");
+                                                        }
+                                                        "5a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{5a}\x1b[0m");
+                                                        }
+                                                        "5b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{5b}\x1b[0m");
+                                                        }
+                                                        "5c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{5c}\x1b[0m");
+                                                        }
+                                                        "5d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{5d}\x1b[0m");
+                                                        }
+                                                        "5e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{5e}\x1b[0m");
+                                                        }
+                                                        "5f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{5f}\x1b[0m");
+                                                        }
+                                                        "60" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{60}\x1b[0m");
+                                                        }
+                                                        "61" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{61}\x1b[0m");
+                                                        }
+                                                        "62" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{62}\x1b[0m");
+                                                        }
+                                                        "63" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{63}\x1b[0m");
+                                                        }
+                                                        "64" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{64}\x1b[0m");
+                                                        }
+                                                        "65" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{65}\x1b[0m");
+                                                        }
+                                                        "66" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{66}\x1b[0m");
+                                                        }
+                                                        "67" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{67}\x1b[0m");
+                                                        }
+                                                        "68" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{68}\x1b[0m");
+                                                        }
+                                                        "69" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{69}\x1b[0m");
+                                                        }
+                                                        "6a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{6a}\x1b[0m");
+                                                        }
+                                                        "6b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{6b}\x1b[0m");
+                                                        }
+                                                        "6c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{6c}\x1b[0m");
+                                                        }
+                                                        "6d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{6d}\x1b[0m");
+                                                        }
+                                                        "6e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{6e}\x1b[0m");
+                                                        }
+                                                        "6f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{6f}\x1b[0m");
+                                                        }
+                                                        "70" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{70}\x1b[0m");
+                                                        }
+                                                        "71" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{71}\x1b[0m");
+                                                        }
+                                                        "72" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{72}\x1b[0m");
+                                                        }
+                                                        "73" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{73}\x1b[0m");
+                                                        }
+                                                        "74" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{74}\x1b[0m");
+                                                        }
+                                                        "75" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{75}\x1b[0m");
+                                                        }
+                                                        "76" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{76}\x1b[0m");
+                                                        }
+                                                        "77" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{77}\x1b[0m");
+                                                        }
+                                                        "78" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{78}\x1b[0m");
+                                                        }
+                                                        "79" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{79}\x1b[0m");
+                                                        }
+                                                        "7a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{7a}\x1b[0m");
+                                                        }
+                                                        "7b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{7b}\u{7b}\x1b[0m");
+                                                        }
+                                                        "7c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{7c}\x1b[0m");
+                                                        }
+                                                        "7d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{7d}\u{7d}\x1b[0m");
+                                                        }
+                                                        "7e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{7e}\x1b[0m");
+                                                        }
+                                                        "7f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{7f}\x1b[0m");
+                                                        }
+                                                        "80" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{80}\x1b[0m");
+                                                        }
+                                                        "81" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0081}\x1b[0m");
+                                                        }
+                                                        "82" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0082}\x1b[0m");
+                                                        }
+                                                        "83" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0083}\x1b[0m");
+                                                        }
+                                                        "84" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0084}\x1b[0m");
+                                                        }
+                                                        "85" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0085}\x1b[0m");
+                                                        }
+                                                        "86" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0086}\x1b[0m");
+                                                        }
+                                                        "87" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0087}\x1b[0m");
+                                                        }
+                                                        "88" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0088}\x1b[0m");
+                                                        }
+                                                        "89" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{0089}\x1b[0m");
+                                                        }
+                                                        "8a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{008a}\x1b[0m");
+                                                        }
+                                                        "8b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{008b}\x1b[0m");
+                                                        }
+                                                        "8c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{8c}\x1b[0m");
+                                                        }
+                                                        "8d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{8d}\x1b[0m");
+                                                        }
+                                                        "8e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{8e}\x1b[0m");
+                                                        }
+                                                        "8f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{8f}\x1b[0m");
+                                                        }
+                                                        "90" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{90}\x1b[0m");
+                                                        }
+                                                        "91" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{91}\x1b[0m");
+                                                        }
+                                                        "92" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{92}\x1b[0m");
+                                                        }
+                                                        "93" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{93}\x1b[0m");
+                                                        }
+                                                        "94" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{94}\x1b[0m");
+                                                        }
+                                                        "95" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{95}\x1b[0m");
+                                                        }
+                                                        "96" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{96}\x1b[0m");
+                                                        }
+                                                        "97" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{97}\x1b[0m");
+                                                        }
+                                                        "98" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{98}\x1b[0m");
+                                                        }
+                                                        "99" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{99}\x1b[0m");
+                                                        }
+                                                        "9a" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{9a}\x1b[0m");
+                                                        }
+                                                        "9b" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{9b}\x1b[0m");
+                                                        }
+                                                        "9c" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{9c}\x1b[0m");
+                                                        }
+                                                        "9d" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{9d}\x1b[0m");
+                                                        }
+                                                        "9e" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{9e}\x1b[0m");
+                                                        }
+                                                        "9f" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{9f}\x1b[0m");
+                                                        }
+                                                        "a0" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a0}\x1b[0m");
+                                                        }
+                                                        "a1" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a1}\x1b[0m");
+                                                        }
+                                                        "a2" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a2}\x1b[0m");
+                                                        }
+                                                        "a3" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a3}\x1b[0m");
+                                                        }
+                                                        "a4" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a4}\x1b[0m");
+                                                        }
+                                                        "a5" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a5}\x1b[0m");
+                                                        }
+                                                        "a6" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a6}\x1b[0m");
+                                                        }
+                                                        "a7" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a7}\x1b[0m");
+                                                        }
+                                                        "a8" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a8}\x1b[0m");
+                                                        }
+                                                        "a9" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{a9}\x1b[0m");
+                                                        }
+                                                        "aa" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{aa}\x1b[0m");
+                                                        }
+                                                        "ab" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ab}\x1b[0m");
+                                                        }
+                                                        "ac" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ac}\x1b[0m");
+                                                        }
+                                                        "ad" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ad}\x1b[0m");
+                                                        }
+                                                        "ae" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ae}\x1b[0m");
+                                                        }
+                                                        "af" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{af}\x1b[0m");
+                                                        }
+                                                        "b0" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b0}\x1b[0m");
+                                                        }
+                                                        "b1" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b1}\x1b[0m");
+                                                        }
+                                                        "b2" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b2}\x1b[0m");
+                                                        }
+                                                        "b3" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b3}\x1b[0m");
+                                                        }
+                                                        "b4" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b4}\x1b[0m");
+                                                        }
+                                                        "b5" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b5}\x1b[0m");
+                                                        }
+                                                        "b6" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b6}\x1b[0m");
+                                                        }
+                                                        "b7" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b7}\x1b[0m");
+                                                        }
+                                                        "b8" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b8}\x1b[0m");
+                                                        }
+                                                        "b9" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{b9}\x1b[0m");
+                                                        }
+                                                        "ba" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ba}\x1b[0m");
+                                                        }
+                                                        "bb" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{bb}\x1b[0m");
+                                                        }
+                                                        "bc" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{bc}\x1b[0m");
+                                                        }
+                                                        "bd" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{bd}\x1b[0m");
+                                                        }
+                                                        "be" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{be}\x1b[0m");
+                                                        }
+                                                        "bf" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{bf}\x1b[0m");
+                                                        }
+                                                        "c0" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c0}\x1b[0m");
+                                                        }
+                                                        "c1" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c1}\x1b[0m");
+                                                        }
+                                                        "c2" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c2}\x1b[0m");
+                                                        }
+                                                        "c3" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c3}\x1b[0m");
+                                                        }
+                                                        "c4" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c4}\x1b[0m");
+                                                        }
+                                                        "c5" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c5}\x1b[0m");
+                                                        }
+                                                        "c6" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c6}\x1b[0m");
+                                                        }
+                                                        "c7" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c7}\x1b[0m");
+                                                        }
+                                                        "c8" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c8}\x1b[0m");
+                                                        }
+                                                        "c9" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{c9}\x1b[0m");
+                                                        }
+                                                        "ca" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ca}\x1b[0m");
+                                                        }
+                                                        "cb" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{cb}\x1b[0m");
+                                                        }
+                                                        "cc" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{cc}\x1b[0m");
+                                                        }
+                                                        "cd" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{cd}\x1b[0m");
+                                                        }
+                                                        "ce" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ce}\x1b[0m");
+                                                        }
+                                                        "cf" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{cf}\x1b[0m");
+                                                        }
+                                                        "d0" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d0}\x1b[0m");
+                                                        }
+                                                        "d1" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d1}\x1b[0m");
+                                                        }
+                                                        "d2" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d2}\x1b[0m");
+                                                        }
+                                                        "d3" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d3}\x1b[0m");
+                                                        }
+                                                        "d4" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d4}\x1b[0m");
+                                                        }
+                                                        "d5" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d5}\x1b[0m");
+                                                        }
+                                                        "d6" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d6}\x1b[0m");
+                                                        }
+                                                        "d7" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d7}\x1b[0m");
+                                                        }
+                                                        "d8" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d8}\x1b[0m");
+                                                        }
+                                                        "d9" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{d9}\x1b[0m");
+                                                        }
+                                                        "da" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{da}\x1b[0m");
+                                                        }
+                                                        "db" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{db}\x1b[0m");
+                                                        }
+                                                        "dc" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{dc}\x1b[0m");
+                                                        }
+                                                        "dd" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{dd}\x1b[0m");
+                                                        }
+                                                        "de" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{de}\x1b[0m");
+                                                        }
+                                                        "df" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{df}\x1b[0m");
+                                                        }
+                                                        "e0" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e0}\x1b[0m");
+                                                        }
+                                                        "e1" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e1}\x1b[0m");
+                                                        }
+                                                        "e2" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e2}\x1b[0m");
+                                                        }
+                                                        "e3" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e3}\x1b[0m");
+                                                        }
+                                                        "e4" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e4}\x1b[0m");
+                                                        }
+                                                        "e5" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e5}\x1b[0m");
+                                                        }
+                                                        "e6" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e6}\x1b[0m");
+                                                        }
+                                                        "e7" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e7}\x1b[0m");
+                                                        }
+                                                        "e8" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e8}\x1b[0m");
+                                                        }
+                                                        "e9" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{e9}\x1b[0m");
+                                                        }
+                                                        "ea" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ea}\x1b[0m");
+                                                        }
+                                                        "eb" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{eb}\x1b[0m");
+                                                        }
+                                                        "ec" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ec}\x1b[0m");
+                                                        }
+                                                        "ed" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ed}\x1b[0m");
+                                                        }
+                                                        "ee" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ee}\x1b[0m");
+                                                        }
+                                                        "ef" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ef}\x1b[0m");
+                                                        }
+                                                        "f0" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f0}\x1b[0m");
+                                                        }
+                                                        "f1" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f1}\x1b[0m");
+                                                        }
+                                                        "f2" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f2}\x1b[0m");
+                                                        }
+                                                        "f3" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f3}\x1b[0m");
+                                                        }
+                                                        "f4" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f4}\x1b[0m");
+                                                        }
+                                                        "f5" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f5}\x1b[0m");
+                                                        }
+                                                        "f6" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f6}\x1b[0m");
+                                                        }
+                                                        "f7" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f7}\x1b[0m");
+                                                        }
+                                                        "f8" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f8}\x1b[0m");
+                                                        }
+                                                        "f9" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{f9}\x1b[0m");
+                                                        }
+                                                        "fa" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{fa}\x1b[0m");
+                                                        }
+                                                        "fb" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{fb}\x1b[0m");
+                                                        }
+                                                        "fc" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{fc}\x1b[0m");
+                                                        }
+                                                        "fd" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{fd}\x1b[0m");
+                                                        }
+                                                        "fe" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{fe}\x1b[0m");
+                                                        }
+                                                        "ff" => {
+                                                            print!("\x1b[48;5;57m\x1b[38;5;188m\u{ff}\x1b[0m");
+                                                        }
+                                                        _ => (),
+                                                    }
+                                                    x.clear();
+                                                }
+                                                println!();
+                                                continue;
+                                            }
+
+                                            match kvc {
+                                                "[" | "]" | "{" | "}" | "\\" | "}," | "],"
+                                                | "\"addresses\":" | "\"source\":" => {}
+
+                                                "\"seedfp\":"
+                                                | "\"diversifier_index\":"
+                                                | "\"valueZat\":"
+                                                | "\"walletInternal\":"
+                                                | "\"outgoing\":"
+                                                | "\"outputPrev\":"
+                                                | "\"txidPrev\":"
+                                                | "\"memoStr\":"
+                                                | "\"spends\":"
+                                                | "\"outputs\":"
+                                                | "\"pool\":" => {
+                                                    klines.next();
+                                                }
+
+                                                "\"txid\":" => {
+                                                    println!(
+                                                        "\x1b[48;5;53m\x1b[38;5;187m{}{}\x1b[0m",
+                                                        &kvc,
+                                                        &klines.next().unwrap()
+                                                    )
+                                                }
+
+                                                "\"address\":" => {
+                                                    println!(
+                                                        "\x1b[48;5;52m\x1b[38;5;187m{}{}\x1b[0m",
+                                                        &kvc,
+                                                        &klines.next().unwrap()
+                                                    )
+                                                }
+
+                                                "\"value\":" => {
+                                                    println!(
+                                                        "\x1b[48;5;23m\x1b[38;5;187m{}{}\x1b[0m",
+                                                        &kvc,
+                                                        &klines.next().unwrap()
+                                                    )
+                                                }
+
+                                                "\"account\":" | "\"receiver_types\":" => {
+                                                    println!(
+                                                        "\x1b[48;5;58m\x1b[38;5;188m{}\x1b[0m",
+                                                        &kvc
+                                                    )
+                                                }
+
+                                                "\"memo\":" => {
+                                                    println!(
+                                                        "\x1b[48;5;59m\x1b[38;5;187m{}\x1b[0m",
+                                                        &kvc
+                                                    );
+                                                }
+
+                                                "\"output\":" => {
+                                                    println!("\x1b[48;5;59m\x1b[38;5;187mReceiver Address <-- \x1b[0m");
+                                                }
+
+                                                "\"spend\":" => {
+                                                    let zerochk = klines.next().unwrap();
+                                                    if zerochk == "0," {
+                                                        println!("\x1b[48;5;58m\x1b[38;5;187mTransaction Type: Send \x1b[0m");
+                                                        println!("\x1b[48;5;59m\x1b[38;5;187mSender Address --> \x1b[0m");
+                                                    }
+                                                }
+                                                _ => (),
+                                            }
+
+                                            continue;
+                                        }
+                                        break;
+                                    }
+
+                                    let ten_millis = time::Duration::from_millis(50);
+                                    let now = time::Instant::now();
+
+                                    thread::sleep(ten_millis);
+
+                                    //println!("\x1b[48;5;23m\x1b[38;5;187m{:?}\x1b[0m", &k);
+                                }
+                            }
+
+                            continue;
+                        }
+                        break;
+                    }
+                }
+            }
+		
+		
+		
+		
+		
             "H" => {
                 println!("\x1b[48;5;52m\x1b[38;5;187m ! This May Take a Few Minutes, Procede Anyways?\x1b[0m");
                 println!("\x1b[48;5;58m\x1b[38;5;187mEnter Y to Continue or Enter Any Other Input to Return\x1b[0m");
