@@ -5261,10 +5261,6 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - getinfo | L - Show 
 			println!("\x1b[48;5;58m\x1b[38;5;188mMessage: \x1b[0m");
 
 			println!("\x1b[48;5;53m\x1b[38;5;187m{}\x1b[0m", &input);
-
-                    
-                    
-                    
                     
                 }
             }
