@@ -157,6 +157,9 @@ You'll be presented with a list of options.
 	| H - Get All TXs 
 		Iterates through debug.log for all add event txids
 		
+	| I - Get Recent TXs 
+		Iterates through the last 1/20th of debug.log for add event txids
+		
 	| C - z_getbalance 		
 		Allows z_getbalance
 		
