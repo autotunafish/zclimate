@@ -18,12 +18,12 @@ This is a Beta design choice that leverages the sibling file permissions, elimin
 
  
 
-Dependencies: inotify-tools, Rust, zcashd full node 
-	run the following if required:
+Dependencies: inotify-tools, Rust, zcashd full node.
+Run the following if required:
 	
-		sudo apt install inotifytools
+	sudo apt install inotifytools
 	
-		curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+	curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 	
 Refer to the zcash.readthedocs for zcash installation information.
 	
