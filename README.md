@@ -189,6 +189,10 @@ During the 'Send' process, it is possible to enter an invalid 'amount' and the p
 
 Extra: The 'debugscript' is a bash script that, fist, outputs the last 10 lines and then outputs any new lines added to the debug.log file in the terminal. It is an extra program unrelated to the first and is for easily viewing the current debug.log information without opening the file which typially takes a very large amount of resources to even execute. To run it, navigate to your .zcash folder and run the following command (Terminate with Ctrl C)
   
-This script may be used some time in the future for monitoring the debug log. However, the exact same behavior and functionality can be achieved by 	simply running 'tail -f debug.log'
-
   	./debugscript
+  
+This script may be used some time in the future for monitoring the debug log. However, the exact same behavior and functionality can be achieved by 	simply running 
+
+	tail -f debug.log
+
+  	
