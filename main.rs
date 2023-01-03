@@ -5278,7 +5278,8 @@ println!("\x1b[48;5;58m\x1b[38;5;188mEnter the Signing Address \x1b[0m");
 
                     io::stdin().read_line(&mut input).unwrap();
                     input.pop();
-					let mut taddy = String::from(&input).clone();
+					let tadd = String::from(&input).clone();
+					let mut taddy = tadd.replace('"', "");
 					if taddy.len() == 0 {
 					println!("\x1b[48;5;52m\x1b[38;5;187mThe Address is Invalid, Please Try Again\x1b[0m");
 					taddy.push_str("make_fail");
