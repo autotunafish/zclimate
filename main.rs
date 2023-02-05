@@ -375,7 +375,7 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - Get Info | L - Show
                 if zaddy.contains(&yes) == true {
                     zaddy.clear();
 
-                    let p = String::from("/home/john/.zcash/debug.log");
+                    let p = dblpathline.clone();
 
                     println!(
                         "\x1b[48;5;58m\x1b[38;5;187mFetching TX History, Please Wait...\x1b[0m"
@@ -1509,7 +1509,7 @@ println!("\x1b[48;5;54m\x1b[38;5;187mType [] to select:\nG - Get Info | L - Show
                 if zaddy.contains(&yes) == true {
                     zaddy.clear();
 
-                    let p = String::from("/home/john/.zcash/debug.log");
+                    let p = dblpathline.clone();
 
                     println!(
                         "\x1b[48;5;58m\x1b[38;5;187mFetching TX History, Please Wait...\x1b[0m"
